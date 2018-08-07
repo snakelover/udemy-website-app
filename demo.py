@@ -2,10 +2,11 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+
 @app.route('/plot/')
 def plot():
     from datetime import datetime
-    from bokeh.plotting import figure, show, output_file
+    from bokeh.plotting import figure  # , show, output_file
     import pandas as pd
     pd.core.common.is_list_like = pd.api.types.is_list_like
     from pandas_datareader import data as pdr
@@ -14,7 +15,7 @@ def plot():
     from bokeh.resources import CDN
 
     start = datetime(2016, 1, 1)
-    #print(start)
+    # print(start)
     end = datetime(2018, 8, 1) 
 
     yf.pdr_override()  
@@ -52,16 +53,18 @@ def plot():
     cdn_css = CDN.css_files[0]
 
     return render_template("plot.html", script1=script1,
-                            div1=div1, cdn_js=cdn_js, cdn_css=cdn_css)
+                           div1=div1, cdn_js=cdn_js, cdn_css=cdn_css)
+
 
 @app.route('/')
 def home():
     return render_template("home.html")
 
+
 @app.route('/about/')
 def about():
     return render_template("about.html")
 
+
 if __name__ == "__main__":
     app.run(debug=True)
-    
