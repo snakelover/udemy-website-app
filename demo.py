@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/plot/')
 def plot():
-    from datetime import datetime
+    from datetime import date, timedelta
     from bokeh.plotting import figure  # , show, output_file
     import pandas as pd
     pd.core.common.is_list_like = pd.api.types.is_list_like
@@ -14,9 +14,8 @@ def plot():
     from bokeh.embed import components
     from bokeh.resources import CDN
 
-    start = datetime(2016, 1, 1)
-    # print(start)
-    end = datetime(2018, 8, 1) 
+    end = date.today()
+    start = end - timedelta(days=365*3)
 
     yf.pdr_override()  
 
